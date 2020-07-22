@@ -11,6 +11,7 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        // Variables
         NSArray* agents = [
             [NSArray alloc] initWithObjects:
             [[LSIAgent alloc] initWithCoverName:@"Ethan Hunt" realName:@"Tom Cruise" accessLevel:8 compromised:NO],
@@ -26,18 +27,41 @@ int main(int argc, const char * argv[]) {
             [[LSIAgent alloc] initWithCoverName:@"Frank Barnes" realName:@"Dale Dye" accessLevel:9 compromised:NO],
             nil
         ];
+        int compromised = 0, clean = 0, low = 0, mid = 0, high = 0;
         
-        // Determine amount of clean/compromised agents
-        int compromised = 0;
-        int clean = 0;
         for(LSIAgent* agent in agents) {
-            (agent.compromised) ? compromised++ : clean++;
+            // Determine access level
+            if(agent.accessLevel <= 4) {
+                low++;
+            } else if (agent.accessLevel >= 8) {
+                high++;
+            } else {
+                mid++;
+            }
             
-            if(!agent.compromised)
+            // Determine if compromised or clean
+            if(agent.compromised) {
+                if(agent.accessLevel >= 8)
+                    NSLog(@"%@, level: %d **WARNING** **COMPROMISED**", agent.realName, agent.accessLevel);
+                compromised++;
+            } else {
                 NSLog(@"%@ is clean", agent.coverName);
+                clean++;
+            }
         }
+        
+        // Print results
         NSLog(@"%d agents are clean", clean);
         NSLog(@"%d agents have been compromised", compromised);
+        NSLog(@"%d low level agents, %d mid level agents, and %d high level agents", low, mid, high);
+        
+        // Step 7 (Optional)
+        for(int level=4;level<11;level++) {
+            for(LSIAgent* agent in agents) {
+                if(agent.accessLevel == level)
+                    NSLog(@"%@, level: %d", agent.coverName, agent.accessLevel);
+            }
+        }
     }
     return 0;
 }
