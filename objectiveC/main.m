@@ -27,6 +27,15 @@ int main(int argc, const char * argv[]) {
             nil
         ];
         
+        // Determine amount of compromised agents
+        int amountCompromised = 0;
+        for(LSIAgent* agent in agents) {
+            if(agent.compromised == YES)
+                amountCompromised++;
+        }
+        NSLog(@"%d agents have been compromised", amountCompromised);
+        
+        
     }
     return 0;
 }
