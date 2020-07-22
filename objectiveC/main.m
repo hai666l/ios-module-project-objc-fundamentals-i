@@ -27,15 +27,17 @@ int main(int argc, const char * argv[]) {
             nil
         ];
         
-        // Determine amount of compromised agents
-        int amountCompromised = 0;
+        // Determine amount of clean/compromised agents
+        int compromised = 0;
+        int clean = 0;
         for(LSIAgent* agent in agents) {
-            if(agent.compromised == YES)
-                amountCompromised++;
+            (agent.compromised) ? compromised++ : clean++;
+            
+            if(!agent.compromised)
+                NSLog(@"%@ is clean", agent.coverName);
         }
-        NSLog(@"%d agents have been compromised", amountCompromised);
-        
-        
+        NSLog(@"%d agents are clean", clean);
+        NSLog(@"%d agents have been compromised", compromised);
     }
     return 0;
 }
