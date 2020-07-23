@@ -31,13 +31,12 @@ int main(int argc, const char * argv[]) {
         
         for(LSIAgent* agent in agents) {
             // Determine access level
-            if(agent.accessLevel <= 4) {
+            if(agent.accessLevel <= 4)
                 low++;
-            } else if (agent.accessLevel >= 8) {
+            else if (agent.accessLevel >= 8)
                 high++;
-            } else {
+            else
                 mid++;
-            }
             
             // Determine if compromised or clean
             if(agent.compromised) {
@@ -56,12 +55,10 @@ int main(int argc, const char * argv[]) {
         NSLog(@"%d low level agents, %d mid level agents, and %d high level agents", low, mid, high);
         
         // Step 7 (Optional)
-        for(int level=4;level<11;level++) {
-            for(LSIAgent* agent in agents) {
+        for(int level=4;level<11;level++)
+            for(LSIAgent* agent in agents)
                 if(agent.accessLevel == level)
                     NSLog(@"%@, level: %d", agent.coverName, agent.accessLevel);
-            }
-        }
     }
     return 0;
 }
